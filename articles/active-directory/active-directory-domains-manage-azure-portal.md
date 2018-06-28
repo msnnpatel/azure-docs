@@ -38,7 +38,16 @@ You can change the primary domain name for your directory to be any verified cus
 You can add up to a maximum of 900 managed domain names. If you are configuring all your domains for federation with on-premises Active Directory, you can add up to a maximum of 450 domain names in each directory. For more information, see [Federated and managed domain names](https://docs.microsoft.com/azure/active-directory/active-directory-add-domain-concepts#federated-and-managed-domain-names).
 
 ## Add subdomains of a custom domain
-If you want to add a third-level domain name such as ‘europe.contoso.com’ to your directory, you should first add and verify the second-level domain, such as contoso.com. The subdomain will be automatically verified by Azure AD. To see that the subdomain that you just added has been verified, refresh the page in the browser that lists the domains.
+If you want to add a third-level domain name such as ‘europe.contoso.com’ to your directory, you should first add and verify the second-level domain, such as contoso.com. To make your subdomain visible in Azure AD custom domain list, firstly we need to add it manually into the list and it will be automatically verified and visible. Please follow below steps to add subdomain manually to your tenant.
+
+1.	Open Windows Powershell 
+2.	Run the command "Install-Module MSOnline"
+3.	Run the command "Import-Module MSOnline"
+4.	Run the command "Connect-MsolService"
+5.	Kindly enter the credential of your new Global Admin user
+6.	Run the command "New-MsolDomain -Name europe.contoso.com -Authentication Federated". Please note, If your root domain authentication type is federated, than your subdomain authentication type must be federated. Optionally, you can also specity TenantId if you have multiple Azure AD tenants.
+7.	After the process, you will be able to view the subdomain listed in the custom domain list and it will be automatically verified then.
+
 
 ## What to do if you change the DNS registrar for your custom domain name
 If you change the DNS registrar for your custom domain name, you can continue to use your custom domain name with Azure AD itself without interruption and without additional configuration tasks. If you use your custom domain name with Office 365, Intune, or other services that rely on custom domain names in Azure AD, refer to the documentation for those services.
